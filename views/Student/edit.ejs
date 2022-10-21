@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <form method="post" action="/student/update">
+            Name : <input type="text" name="name" value="<%= user.name%>"><br>
+            Email : <input type="text" name="email" value="<%= user.email%>"><br>
+            Roll no. : <input type="text" name="rno" value="<%= user.roll_no%>"><br>
+            Semester : <input type="text" name="sem" value="<%= user.semester%>"><br>
+            <input type="hidden" name="_id" value="<%= user._id%>">
+            <input type="submit" value="Submit">
+        </form>
+        <!-- <script>document.editform.submit();</script> -->
+    </body>
+</html>
