@@ -2,6 +2,12 @@
     <body>
         <h1>Images</h1>
         <a href="/files/add">Add New</a>
-        <img src="../<%= image%>" width="200">
+        <% if(Array.isArray(image)) { %>
+            <% image.forEach(function(image) { %>
+                <img src="../<%= image.filename%>" width="200">
+            <% }); %>    
+        <% } else { %>
+            <img src="../<%= image%>" width="200">
+        <% } %>
     </body>
 </html>

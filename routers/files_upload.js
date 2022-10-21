@@ -22,8 +22,13 @@ route.get("/add", (req,res) => {
 });
 
 route.post("/upload_singal", upload.single("image"), (req, res) => {
-    console.log(req.file.filename)
-    res.render("./File_upload/display_file",{image: req.file.filename})
+    console.log(req.file.filename);
+    res.render("./File_upload/display_file",{image: req.file.filename});
+});
+
+route.post("/upload_multiple", upload.array("image", 10), (req, res) => {
+    console.log(req.files);
+    res.render("./File_upload/display_file",{image: req.files});
 });
 
 module.exports = route;
