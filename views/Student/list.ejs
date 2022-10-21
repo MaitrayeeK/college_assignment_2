@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <table border="1">
+        <a href="/student/add_user">Add New</a>
+            <tr><th>Name</th><th>Email</th><th>Roll no</th><th>Semester</th></tr>
+            <% data.forEach(function(user) { %>
+                <tr>
+                    <td><%= user.name%></td>
+                    <td><%= user.email%></td>
+                    <td><%= user.roll_no%></td>
+                    <td><%= user.semester%></td>
+                    <td><a href="/student/edit/<%= user._id%>">Edit</a></td>
+                    <td><a href="/student/delete/<%= user._id%>">Delete</a></td>
+                </tr>
+            <% }); %>    
+        </table>
+    </body>
+</html>
