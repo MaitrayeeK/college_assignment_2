@@ -1,16 +1,41 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const file_route = require("./routers/files_upload");
-app.set("view engine", "ejs");
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static('uploads'));
+app.use(session({ secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: new FileStore,
+    cookie: { maxAge: 3600000,secure: false, httpOnly: true }
+  })
+);
 
-app.use("/files", file_route);
+let username;
+let password;
 
-app.listen(8080, (err,res) => {
-    if(err) console.log("Server not connected");
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: false}));
+app.use((req, res, next) => {
+    req.session.username = "Maitrayee";
+    req.session.password = "@maitrayee123"
+    username = req.body.username;
+    password = req.body.password;
+    if(username === req.session.username && password === req.session.password)
+    {
+        next();
+    }
+    else
+    {
+        res.send("Wrong username / Password");
+    }
+});
 
-    console.log("Server is listening on 8080.");
+app.post('/validate', (req, res) => {
+    res.send("hello =>" + username + "Login Done");
+    res.end();
+});
+
+app.listen(8080, () => {
+    console.log("Listen on 8080");
 });
